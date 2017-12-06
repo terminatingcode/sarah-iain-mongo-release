@@ -1,0 +1,9 @@
+name: si-mongo
+version: 0.0.1
+commit_hash: dd70ba6
+uncommitted_changes: false
+jobs:
+- name: mongo
+  version: 8902e608c97934b202f0380b1c1de4018606cfe5
+  fingerprint: 8902e608c97934b202f0380b1c1de4018606cfe5
+  sha1: 2cb65a166bbd776492cf9ae0e914e8b845e73b48

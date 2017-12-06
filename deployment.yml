@@ -1,0 +1,30 @@
+name: si-mongo-deployment
+
+releases:
+- name: si-mongo
+  version: create
+  url: .
+
+stemcells:
+- alias: default
+  version: latest
+  name: bosh-google-kvm-ubuntu-trusty-go_agent
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+instance_groups:
+- name: mongo-ig
+  instances: 1
+  azs: [z1]
+  jobs:
+  - name: mongo
+    release: si-mongo
+  vm_type: n1-standard-1
+  stemcell: default
+  networks:
+  - name: default
+
