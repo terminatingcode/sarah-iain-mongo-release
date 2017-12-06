@@ -1,0 +1,6 @@
+check process web_ui
+  with pidfile /var/vcap/sys/run/mongo/pid
+  start program "/var/vcap/jobs/mongo/bin/ctl start"
+  stop program "/var/vcap/jobs/mongo/bin/ctl stop"
+  group vcap
+
