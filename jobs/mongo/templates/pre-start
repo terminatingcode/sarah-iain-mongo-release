@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -ex
+
+source `dirname $(readlink -f $0)`/env-var
+
+
+#chpst -u $RUNAS:$RUNAS $MONGO_DIR/mongod --dbpath $DATA_DIR --noauth \
+echo "Pre-start script is working2">>$LOG_DIR/mongo.pre-start.stderr.log 2>>$LOG_DIR/mongo.pre-start.stderr.log
+# create new admin user

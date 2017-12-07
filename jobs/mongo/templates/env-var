@@ -1,0 +1,15 @@
+export MONGO_DIR=/var/vcap/packages/mongo-3.6.0/bin
+export RUN_DIR=/var/vcap/sys/run/mongo
+export LOG_DIR=/var/vcap/sys/log/mongo
+export DATA_DIR=/var/vcap/store/mongodb
+export RUNAS=vcap
+export PIDFILE=${RUN_DIR}/pid
+
+mkdir -p $RUN_DIR $LOG_DIR $DATA_DIR
+chown -R $RUNAS:$RUNAS $RUN_DIR $LOG_DIR $DATA_DIR
+
+
+
+
+
+
