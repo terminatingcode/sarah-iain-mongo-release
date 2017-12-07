@@ -1,0 +1,4 @@
+set -e -x
+
+tar xzf mongo-3.6.0
+cp -a mongodb-linux-x86_64-ubuntu1404-3.6.0/* ${BOSH_INSTALL_TARGET}

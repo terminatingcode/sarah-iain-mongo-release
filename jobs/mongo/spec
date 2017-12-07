@@ -4,6 +4,7 @@ name: mongo
 templates:
   ctl.erb: bin/ctl
 
-packages: []
+packages:
+- mongo-3.6.0
 
 properties: {}

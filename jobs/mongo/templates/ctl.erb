@@ -2,26 +2,23 @@
 
 RUN_DIR=/var/vcap/sys/run/mongo
 LOG_DIR=/var/vcap/sys/log/mongo
+DATA_DIR=/var/vcap/store/mongodb
+RUNAS=vcap
 PIDFILE=${RUN_DIR}/pid
 
 case $1 in
 
   start)
-    mkdir -p $RUN_DIR $LOG_DIR
-    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+    mkdir -p $RUN_DIR $LOG_DIR $DATA_DIR
+    chown -R $RUNAS:$RUNAS $RUN_DIR $LOG_DIR $DATA_DIR
 
     echo $$ > $PIDFILE
 
-    <%# export PATH=/var/vcap/packages/ruby_1.9.3/bin:$PATH %>
+    exec chpst -u $RUNAS:$RUNAS \
+    /var/vcap/packages/mongo-3.6.0/bin/mongod --dbpath $DATA_DIR \
+    >>$LOG_DIR/mongo.stdout.log 2>>$LOG_DIR/mongo.stderr.log
 
-    <%# exec /var/vcap/packages/ruby_1.9.3/bin/bundle exec \ %>
-    <%#   rackup -p <%= properties.web_ui.port %1> \ %>
-    <%#   >>  $LOG_DIR/web_ui.stdout.log \ %>
-    <%#   2>> $LOG_DIR/web_ui.stderr.log %>
-
-    echo "hello world">>$LOG_DIR/mongo.stdout.log 2>>$LOG_DIR/mongo.stderr.log
     ;;
-
 
   stop)
     kill -9 `cat $PIDFILE`
