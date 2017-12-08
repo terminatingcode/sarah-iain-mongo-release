@@ -14,10 +14,13 @@ case $1 in
   
     echo $$ > $PIDFILE
 
-    echo "hello <%= p('admin_username') %>" \
+    echo "admin username: <%= p('admin_username') %>" \
     >>$LOG_DIR/mongo.stderr.log 2>>$LOG_DIR/mongo.stderr.log
 
     
+    echo "admin password: <%= p('admin_password') %>" \
+    >>$LOG_DIR/mongo.stderr.log 2>>$LOG_DIR/mongo.stderr.log
+
 
     exec chpst -u $RUNAS:$RUNAS \
     $MONGO_DIR/mongod --dbpath $DATA_DIR --auth \
