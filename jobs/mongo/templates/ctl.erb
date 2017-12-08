@@ -5,13 +5,22 @@ source `dirname $(readlink -f $0)`/env-var
 case $1 in
 
   start)
+  
+    if [ -f $PIDFILE ]; then
+      kill -9 $(cat $PIDFILE)
+      rm -f $PIDFILE
+      sleep 5
+    fi
+  
     echo $$ > $PIDFILE
 
     echo "hello <%= p('admin_username') %>" \
     >>$LOG_DIR/mongo.stderr.log 2>>$LOG_DIR/mongo.stderr.log
 
+    
+
     exec chpst -u $RUNAS:$RUNAS \
-    $MONGO_DIR/mongod --dbpath $DATA_DIR \
+    $MONGO_DIR/mongod --dbpath $DATA_DIR --auth \
     >>$LOG_DIR/mongo.stdout.log 2>>$LOG_DIR/mongo.stderr.log
 
     ;;

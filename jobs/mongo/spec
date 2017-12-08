@@ -5,6 +5,7 @@ templates:
   ctl.erb: bin/ctl
   pre-start: bin/pre-start
   env-var: bin/env-var
+  js/create_admin_user.js.erb: js/create_admin_user.js
 
 packages:
 - mongo-3.6.0

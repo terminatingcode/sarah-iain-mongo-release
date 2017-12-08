@@ -2,9 +2,20 @@
 
 set -ex
 
-source `dirname $(readlink -f $0)`/env-var
+SCRIPT_DIR=`dirname $(readlink -f $0)`
+
+source $SCRIPT_DIR/env-var
 
 
-#chpst -u $RUNAS:$RUNAS $MONGO_DIR/mongod --dbpath $DATA_DIR --noauth \
-echo "Pre-start script is working2">>$LOG_DIR/mongo.pre-start.stderr.log 2>>$LOG_DIR/mongo.pre-start.stderr.log
+chpst -u $RUNAS:$RUNAS $MONGO_DIR/mongod --dbpath $DATA_DIR --noauth \
+--pidfilepath $PIDFILE \
+>>$LOG_DIR/mongo.pre-start.stderr.log 2>>$LOG_DIR/mongo.pre-start.stderr.log &
 # create new admin user
+sleep 5
+$MONGO_DIR/mongo < $SCRIPT_DIR/../js/create_admin_user.js
+
+if [ -f $PIDFILE ]; then
+  kill -9 $(cat $PIDFILE)
+  rm -f $PIDFILE
+  sleep 1
+fi
